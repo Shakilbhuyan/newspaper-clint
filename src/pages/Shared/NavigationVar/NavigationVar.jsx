@@ -5,7 +5,12 @@ import { FaUserCircle } from 'react-icons/fa';
 import { AuthContext } from '../../../Providers/AuthProvider';
 
 const NavigationVar = () => {
-    const {user} = useContext(AuthContext);
+    const {user, logOut} = useContext(AuthContext);
+    const handleLogOut =()=>{
+        logOut()
+        .then(()=>{})
+        .catch(error => console.log(error))
+    }
     return (
         <Container>
              <Navbar collapseOnSelect expand="lg" bg="white" variant="white">
@@ -17,13 +22,13 @@ const NavigationVar = () => {
                             <Nav.Link href="#pricing">About</Nav.Link>
                             <Nav.Link href="#pricing">Career</Nav.Link>
                         </Nav>
-                        <Nav>
+                        <Nav className='d-flex align-items-center'>
                            {user &&
-                            <FaUserCircle style={{fontSize :'2rem'}}></FaUserCircle>
+                            <FaUserCircle style={{fontSize :'1.5rem', marginRight:'8px'}}></FaUserCircle>
                            }
                             
                             {
-                                user ? <Button variant="secondary">Logout</Button> :
+                                user ? <Button onClick={handleLogOut} variant="secondary">Logout</Button> :
                                 <Link to="/login"><Button variant="secondary">Login</Button></Link>
                             }
                         </Nav>
